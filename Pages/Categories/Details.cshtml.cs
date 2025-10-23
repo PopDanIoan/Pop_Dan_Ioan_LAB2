@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
-using Pop_Dan_Ioan_LAB2.Models;
 
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Categoriess
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +18,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
             _context = context;
         }
 
-        public Publisher Publisher { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +27,14 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
-            if (bookpublisher == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
             else
             {
-                Publisher = bookpublisher;
+                Category = category;
             }
             return Page();
         }

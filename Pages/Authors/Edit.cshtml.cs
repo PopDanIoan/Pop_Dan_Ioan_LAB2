@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
 using Pop_Dan_Ioan_LAB2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-using System.Threading.Tasks;
-
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Authors
 {
     public class EditModel : PageModel
     {
@@ -22,7 +21,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
         }
 
         [BindProperty]
-        public Publisher Publisher { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,13 +30,12 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher =  await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
-            if (bookpublisher == null)
+            var author =  await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            if (author == null)
             {
                 return NotFound();
             }
-            Publisher = bookpublisher;
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+            Author = author;
             return Page();
         }
 
@@ -50,7 +48,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return Page();
             }
 
-            _context.Attach(Publisher).State = EntityState.Modified;
+            _context.Attach(Author).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookPublisherExists(Publisher.ID))
+                if (!AuthorExists(Author.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
             return RedirectToPage("./Index");
         }
 
-        private bool BookPublisherExists(int id)
+        private bool AuthorExists(int id)
         {
-            return _context.Publisher.Any(e => e.ID == id);
+            return _context.Author.Any(e => e.ID == id);
         }
     }
 }

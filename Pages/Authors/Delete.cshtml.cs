@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
 using Pop_Dan_Ioan_LAB2.Models;
 
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Authors
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
         }
 
         [BindProperty]
-        public Publisher Publisher { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
+            var author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (bookpublisher == null)
+            if (author == null)
             {
                 return NotFound();
             }
             else
             {
-                Publisher = bookpublisher;
+                Author = author;
             }
             return Page();
         }
@@ -49,11 +49,11 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FindAsync(id);
-            if (bookpublisher != null)
+            var author = await _context.Author.FindAsync(id);
+            if (author != null)
             {
-                Publisher = bookpublisher;
-                _context.Publisher.Remove(Publisher);
+                Author = author;
+                _context.Author.Remove(Author);
                 await _context.SaveChangesAsync();
             }
 

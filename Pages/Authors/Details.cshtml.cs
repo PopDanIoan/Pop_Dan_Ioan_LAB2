@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
 using Pop_Dan_Ioan_LAB2.Models;
 
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Authors
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
             _context = context;
         }
 
-        public Publisher Publisher { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
-            if (bookpublisher == null)
+            var author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            if (author == null)
             {
                 return NotFound();
             }
             else
             {
-                Publisher = bookpublisher;
+                Author = author;
             }
             return Page();
         }

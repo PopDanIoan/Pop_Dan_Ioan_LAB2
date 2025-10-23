@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
-using Pop_Dan_Ioan_LAB2.Models;
 
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Categoriess
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +19,7 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
         }
 
         [BindProperty]
-        public Publisher Publisher { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +28,15 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (bookpublisher == null)
+            if (category == null)
             {
                 return NotFound();
             }
             else
             {
-                Publisher = bookpublisher;
+                Category = category;
             }
             return Page();
         }
@@ -49,11 +48,11 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
                 return NotFound();
             }
 
-            var bookpublisher = await _context.Publisher.FindAsync(id);
-            if (bookpublisher != null)
+            var category = await _context.Category.FindAsync(id);
+            if (category != null)
             {
-                Publisher = bookpublisher;
-                _context.Publisher.Remove(Publisher);
+                Category = category;
+                _context.Category.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 

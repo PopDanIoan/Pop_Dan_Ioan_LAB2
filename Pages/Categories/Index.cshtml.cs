@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
-using Pop_Dan_Ioan_LAB2.Models;
 
-namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
+namespace Pop_Dan_Ioan_LAB2.Pages.Categoriess
 {
     public class IndexModel : PageModel
     {
@@ -19,14 +18,11 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Publishers
             _context = context;
         }
 
-        public IList<Publisher> Publisher { get;set; } = default!;
+        public IList<Category> Category { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Publisher = await _context.Publisher
-                .Include(p => p.Books)
-                .ToListAsync();
-
+            Category = await _context.Category.ToListAsync();
         }
     }
 }

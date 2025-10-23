@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pop_Dan_Ioan_LAB2.Data;
 
@@ -11,9 +12,11 @@ using Pop_Dan_Ioan_LAB2.Data;
 namespace Pop_Dan_Ioan_LAB2.Migrations
 {
     [DbContext(typeof(Pop_Dan_Ioan_LAB2Context))]
-    partial class Pop_Dan_Ioan_LAB2ContextModelSnapshot : ModelSnapshot
+    [Migration("20251021075252_scr")]
+    partial class scr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,46 +24,6 @@ namespace Pop_Dan_Ioan_LAB2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BookCategory", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("BookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BookID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("BookCategory");
-                });
-
-            modelBuilder.Entity("Category", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Category");
-                });
 
             modelBuilder.Entity("Pop_Dan_Ioan_LAB2.Models.Author", b =>
                 {
@@ -133,25 +96,6 @@ namespace Pop_Dan_Ioan_LAB2.Migrations
                     b.ToTable("Publisher");
                 });
 
-            modelBuilder.Entity("BookCategory", b =>
-                {
-                    b.HasOne("Pop_Dan_Ioan_LAB2.Models.Book", "Book")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Category", "Category")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Pop_Dan_Ioan_LAB2.Models.Book", b =>
                 {
                     b.HasOne("Pop_Dan_Ioan_LAB2.Models.Author", "Author")
@@ -167,19 +111,9 @@ namespace Pop_Dan_Ioan_LAB2.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("Category", b =>
-                {
-                    b.Navigation("BookCategories");
-                });
-
             modelBuilder.Entity("Pop_Dan_Ioan_LAB2.Models.Author", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("Pop_Dan_Ioan_LAB2.Models.Book", b =>
-                {
-                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Pop_Dan_Ioan_LAB2.Models.Publisher", b =>

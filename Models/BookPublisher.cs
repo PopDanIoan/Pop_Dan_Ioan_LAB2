@@ -2,7 +2,7 @@
 
 namespace Pop_Dan_Ioan_LAB2.Models
 {
-    public class BookPublisher
+    public class Publisher
     {
         public int ID { get; set; }
         public string PublisherName { get; set; } = null!;

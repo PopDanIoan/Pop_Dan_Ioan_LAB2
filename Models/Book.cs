@@ -11,7 +11,8 @@ namespace Pop_Dan_Ioan_LAB2.Models
         [Display(Name = "Book Title")]
         public string Title { get; set; } = null!;
 
-        public string Author { get; set; } = null!;
+        public int? AuthorID { get; set; } // Cheia străină (Foreign Key)
+        public Author? Author { get; set; }
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
@@ -20,6 +21,8 @@ namespace Pop_Dan_Ioan_LAB2.Models
         public DateTime PublishingDate { get; set; }
     
         public int? PublisherID { get; set; }
-        public BookPublisher? Publisher { get; set; }
+        public Publisher? Publisher { get; set; }
+
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }
