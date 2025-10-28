@@ -7,17 +7,31 @@
 
 <h1>Books</h1>
 
-<p> 
+<p>
     <a asp-page="Create">Create New</a>
+    <form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Book Title / Author Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Title
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort">
+                    Title
+                </a>
             </th>
             <th>
-                Author
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorSort">
+                    Author
+                </a>
             </th>
             <th>
                 Price
@@ -47,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+                    @Html.DisplayFor(modelItem => item.Author.FullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)

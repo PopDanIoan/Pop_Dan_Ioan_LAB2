@@ -4,13 +4,18 @@ namespace Pop_Dan_Ioan_LAB2.Models
 {
     public class Author
     {
-        public int ID { get; set; } 
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; } = null!;
-
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; } = null!;
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
 
         public ICollection<Book>? Books { get; set; }
     }
