@@ -24,5 +24,6 @@ namespace Pop_Dan_Ioan_LAB2.Models
         public Publisher? Publisher { get; set; }
 
         public ICollection<BookCategory>? BookCategories { get; set; }
+        public ICollection<Borrowing>? Borrowings { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pop_Dan_Ioan_LAB2.Data;
 
@@ -11,9 +12,11 @@ using Pop_Dan_Ioan_LAB2.Data;
 namespace Pop_Dan_Ioan_LAB2.Migrations
 {
     [DbContext(typeof(Pop_Dan_Ioan_LAB2Context))]
-    partial class Pop_Dan_Ioan_LAB2ContextModelSnapshot : ModelSnapshot
+    [Migration("20251108201739_Borrowings")]
+    partial class Borrowings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
