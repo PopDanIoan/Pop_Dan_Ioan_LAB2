@@ -5,24 +5,39 @@ using Pop_Dan_Ioan_LAB2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adaugă DbContext-ul principal al aplicației
 builder.Services.AddDbContext<Pop_Dan_Ioan_LAB2Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Pop_Dan_Ioan_LAB2Context") ?? throw new InvalidOperationException("Connection string 'Pop_Dan_Ioan_LAB2Context' not found.")));
 
-// Adaugă DbContext-ul pentru Identity, folosind același connection string
+
 builder.Services.AddDbContext<LibraryIdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Pop_Dan_Ioan_LAB2Context") ?? throw new InvalidOperationException("Connection string 'Pop_Dan_Ioan_LAB2Context' not found.")));
 
-// Adaugă serviciile Identity
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LibraryIdentityContext>();
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireRole("Admin"));
+});
+
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Books");
+    options.Conventions.AllowAnonymousToPage("/Books/Index");
+    options.Conventions.AllowAnonymousToPage("/Books/Details");
+    options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Publishers", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -34,7 +49,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Adaugă Authentication (crucial pentru Identity)
 app.UseAuthentication();
 app.UseAuthorization();
 

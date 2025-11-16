@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pop_Dan_Ioan_LAB2.Data;
 using Pop_Dan_Ioan_LAB2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pop_Dan_Ioan_LAB2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly Pop_Dan_Ioan_LAB2.Data.Pop_Dan_Ioan_LAB2Context _context;

@@ -40,16 +40,14 @@ namespace Pop_Dan_Ioan_LAB2.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = new InputModel();
 
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        [BindProperty]
         public Member Member { get; set; }
 
-        // AICI ESTE CLASA LIPSĂ, ACUM ADĂUGATĂ:
         public class InputModel
         {
             [Required]
@@ -92,8 +90,11 @@ namespace Pop_Dan_Ioan_LAB2.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    Member.Email = Input.Email;
-                    _context.Member.Add(Member);
+                    var role = await _userManager.AddToRoleAsync(user, "User");
+
+                    var member = new Member();
+                    member.Email = Input.Email;
+                    _context.Member.Add(member);
                     await _context.SaveChangesAsync();
 
                     var userId = await _userManager.GetUserIdAsync(user);

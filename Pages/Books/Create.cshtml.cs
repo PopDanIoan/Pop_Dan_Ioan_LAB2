@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Pop_Dan_Ioan_LAB2.Data;
 using Pop_Dan_Ioan_LAB2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pop_Dan_Ioan_LAB2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly Pop_Dan_Ioan_LAB2Context _context;
@@ -38,8 +40,6 @@ namespace Pop_Dan_Ioan_LAB2.Pages.Books
 
         public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
         {
-            // Am modificat aici: vom lucra direct pe proprietatea 'Book'
-            // care vine deja populată cu datele din formular.
             if (selectedCategories != null)
             {
                 Book.BookCategories = new List<BookCategory>();

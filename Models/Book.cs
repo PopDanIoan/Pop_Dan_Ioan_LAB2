@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Policy;
 
 namespace Pop_Dan_Ioan_LAB2.Models
 {
@@ -9,17 +8,20 @@ namespace Pop_Dan_Ioan_LAB2.Models
         public int ID { get; set; }
 
         [Display(Name = "Book Title")]
+        [Required]
+        [StringLength(150, MinimumLength = 3)]
         public string Title { get; set; } = null!;
 
-        public int? AuthorID { get; set; } // Cheia străină (Foreign Key)
+        public int? AuthorID { get; set; }
         public Author? Author { get; set; }
 
         [Column(TypeName = "decimal(6, 2)")]
+        [Range(0.01, 500)]
         public decimal Price { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime PublishingDate { get; set; }
-    
+
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
 
